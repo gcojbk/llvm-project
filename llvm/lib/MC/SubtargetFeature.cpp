@@ -32,6 +32,8 @@
 
 using namespace llvm;
 
+extern bool Cpu0DisableUnreconginizedMessage; // For Cpu0
+
 /// Determine if a feature has a flag; '+' or '-'
 static inline bool hasFlag(StringRef Feature) {
   assert(!Feature.empty() && "Empty string");

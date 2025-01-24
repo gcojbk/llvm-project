@@ -27,7 +27,14 @@ static FeatureBitset getFeatures(StringRef CPU, StringRef FS,
   return Features.getFeatureBits(CPU, ProcDesc, ProcFeatures);
 }
 
+bool Cpu0DisableUnreconginizedMessage = false;
+
 void MCSubtargetInfo::InitMCProcessorInfo(StringRef CPU, StringRef FS) {
+#if 1 // Disable reconginized processor message. For Cpu0
+  if (TargetTriple.getArch() == llvm::Triple::cpu0 ||
+      TargetTriple.getArch() == llvm::Triple::cpu0el)
+        Cpu0DisableUnreconginizedMessage = true;
+#endif
   FeatureBits = getFeatures(CPU, FS, ProcDesc, ProcFeatures);
   if (!CPU.empty())
     CPUSchedModel = &getSchedModelForCPU(CPU);
